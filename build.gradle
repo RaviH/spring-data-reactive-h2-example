@@ -1,0 +1,44 @@
+plugins {
+	id 'org.springframework.boot' version '2.2.1.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+	id 'java'
+}
+
+group = 'examples.java.with.ravi'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+	maven { url 'https://repo.spring.io/milestone' }
+}
+
+dependencies {
+	implementation 'org.springframework.boot.experimental:spring-boot-starter-data-r2dbc'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation 'io.github.benas:random-beans:3.8.0'
+	implementation 'org.hibernate.validator:hibernate-validator:6.1.0.Final'
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:2.2.0.RELEASE'
+
+	compile 'io.projectreactor:reactor-test'
+	compile 'com.h2database:h2:1.4.199'
+	compile 'io.r2dbc:r2dbc-h2'
+	compileOnly 'org.projectlombok:lombok:1.18.10'
+
+	annotationProcessor 'org.projectlombok:lombok:1.18.10'
+
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+	testImplementation 'org.springframework.boot.experimental:spring-boot-test-autoconfigure-r2dbc'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom 'org.springframework.boot.experimental:spring-boot-bom-r2dbc:0.1.0.M2'
+	}
+}
+
+test {
+	useJUnitPlatform()
+}
